@@ -1,9 +1,14 @@
 import { loadItemsError, loadItemsProgress, loadItemsSuccess } from "../actions/actions";
-import * as list from '../data/users.json';
+import axios from 'axios';
 
 export const loadItems = () => async (dispatch) => {
     try {
-        dispatch(loadItemsProgress());       
+        dispatch(loadItemsProgress()); 
+        const response = await axios.get(
+            `http://localhost:3000/users`
+        );
+        const list = await response.data;
+        
         dispatch(loadItemsSuccess(list));
 
     } catch (e) {
