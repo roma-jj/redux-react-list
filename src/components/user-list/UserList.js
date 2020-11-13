@@ -4,10 +4,12 @@ import { displayAlert, loadItems } from '../../thunks/thunks';
 
 import UserItem from '../user-item/UserItem';
 import Preloader from '../../shared/preloader/Preloader';
+import UserName from '../user-name/UserName';
 
 
 const UserList = ({ list = [], isLoading, startLoadingItems }) => {
 
+    let [index, setIndex] = useState(0);
     let [currentPage, setCurrentPage] = useState(1);
     let itemsPerPage = 5;
     let indexOfLastItem = currentPage * itemsPerPage;
@@ -22,12 +24,22 @@ const UserList = ({ list = [], isLoading, startLoadingItems }) => {
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+    useEffect(() => {
+        const showItemOninterval = setInterval(() => {
+            setIndex(index++)
+            currentItems.forEach((_, i) => {
+                if (index <= i) {
+                    return index;
+                }
+            })
+        }, 8000);
+        return () => clearInterval(showItemOninterval);
+      }, [currentItems, index]);
 
     useEffect(() => {
         startLoadingItems();
     }, [startLoadingItems])
-    
- 
+
     const content = (
         <div>
             <div>
@@ -48,6 +60,18 @@ const UserList = ({ list = [], isLoading, startLoadingItems }) => {
                     })}
                 </ul>
             </nav>
+
+            <div>
+                {currentItems.map((item, i) => {
+                    return (
+                        <UserName 
+                            key={i} 
+                            item={item}   
+                        />
+                    );
+                })[index]}
+            </div>
+
         </div>
     );
     return isLoading ? <div><Preloader /></div> : content;
