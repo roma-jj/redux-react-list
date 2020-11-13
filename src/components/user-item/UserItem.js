@@ -1,14 +1,15 @@
 import React from 'react';
+import { Card, Name, Description } from '../../shared/styles/styles';
 
 
 const UserItem = ({ item }) => {
 
     return (
-        <div>
-            <p>{item.name}</p>
-            <p>{item.surname}</p>
-            <p>{item.desc}</p>
-        </div>
+        <Card>
+            <Name>{item.name}</Name>
+            <Name>{item.surname}</Name>
+            <Description>{item.desc}</Description>
+        </Card>
     );
 }
 

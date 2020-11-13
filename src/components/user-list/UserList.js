@@ -5,6 +5,7 @@ import { displayAlert, loadItems } from '../../thunks/thunks';
 import UserItem from '../user-item/UserItem';
 import Preloader from '../../shared/preloader/Preloader';
 import UserName from '../user-name/UserName';
+import { CardWrapper, PageWrapper, Page, Refer, PreloaderWrapper } from '../../shared/styles/styles';
 
 
 const UserList = ({ list = [], isLoading, startLoadingItems }) => {
@@ -42,23 +43,23 @@ const UserList = ({ list = [], isLoading, startLoadingItems }) => {
 
     const content = (
         <div>
-            <div>
+            <CardWrapper>
                 {currentItems.map((item, i) => <UserItem 
                     key={i} 
                     item={item} 
                 />)}
-            </div>
+            </CardWrapper>
 
             <nav>
-                <ul>
+                <PageWrapper>
                     {pageNumbers.map(page => {
-                        return (<li key={page}>
-                            <a onClick={() => paginate(page)} href="!#">
+                        return (<Page key={page}>
+                            <Refer onClick={() => paginate(page)} href="!#">
                                 {page}
-                            </a>
-                        </li>)
+                            </Refer>
+                        </Page>)
                     })}
-                </ul>
+                </PageWrapper>
             </nav>
 
             <div>
@@ -74,7 +75,7 @@ const UserList = ({ list = [], isLoading, startLoadingItems }) => {
 
         </div>
     );
-    return isLoading ? <div><Preloader /></div> : content;
+    return isLoading ? <PreloaderWrapper><Preloader /></PreloaderWrapper> : content;
 };
 
 const mapStateToProps = state => ({
