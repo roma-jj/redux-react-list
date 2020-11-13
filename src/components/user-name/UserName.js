@@ -1,21 +1,17 @@
 import React from 'react';
+import { ShowNameWrapper, ShowName } from '../../shared/styles/styles';
 
 
 const UserName = ({ item }) => {
 
-    // let naming = setTimeout(function showName() {
-    //     naming = setTimeout(naming, 8000);
-    // }, 8000);
-
         const name = (
-            <div>
-                RRR
-                <p>{item.name}</p>
-                <p>{item.surname}</p>
-            </div>
-        )
+            <ShowNameWrapper>
+                <ShowName>{item.name}</ShowName>
+                <ShowName>{item.surname}</ShowName>
+            </ShowNameWrapper>
+        );
 
-      return name
+      return name;
 }
 
 export default UserName;
